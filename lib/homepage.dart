@@ -1,4 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:posts_app/widgets/post_item.dart';
+
+import 'data/models/post.dart';
 
 class Homepage extends StatelessWidget {
   final String title;
@@ -50,10 +53,65 @@ class Homepage extends StatelessWidget {
         "body":
             "ut aspernatur corporis harum nihil quis provident sequi\nmollitia nobis aliquid molestiae\nperspiciatis et ea nemo ab reprehenderit accusantium quas\nvoluptate dolores velit et doloremque molestiae"
       },
-    ];
+      {
+        "userId": 1,
+        "id": 6,
+        "title": "dolorem eum magni eos aperiam quia",
+        "body":
+            "ut aspernatur corporis harum nihil quis provident sequi\nmollitia nobis aliquid molestiae\nperspiciatis et ea nemo ab reprehenderit accusantium quas\nvoluptate dolores velit et doloremque molestiae"
+      },
+      {
+        "userId": 1,
+        "id": 6,
+        "title": "dolorem eum magni eos aperiam quia",
+        "body":
+            "ut aspernatur corporis harum nihil quis provident sequi\nmollitia nobis aliquid molestiae\nperspiciatis et ea nemo ab reprehenderit accusantium quas\nvoluptate dolores velit et doloremque molestiae"
+      },
+      {
+        "userId": 1,
+        "id": 6,
+        "title": "dolorem eum magni eos aperiam quia",
+        "body":
+            "ut aspernatur corporis harum nihil quis provident sequi\nmollitia nobis aliquid molestiae\nperspiciatis et ea nemo ab reprehenderit accusantium quas\nvoluptate dolores velit et doloremque molestiae"
+      },
+      {
+        "userId": 1,
+        "id": 6,
+        "title": "dolorem eum magni eos aperiam quia",
+        "body":
+            "ut aspernatur corporis harum nihil quis provident sequi\nmollitia nobis aliquid molestiae\nperspiciatis et ea nemo ab reprehenderit accusantium quas\nvoluptate dolores velit et doloremque molestiae"
+      },
+      {
+        "userId": 1,
+        "id": 6,
+        "title": "dolorem eum magni eos aperiam quia",
+        "body":
+            "ut aspernatur corporis harum nihil quis provident sequi\nmollitia nobis aliquid molestiae\nperspiciatis et ea nemo ab reprehenderit accusantium quas\nvoluptate dolores velit et doloremque molestiae"
+      },
+      {
+        "userId": 1,
+        "id": 6,
+        "title": "dolorem eum magni eos aperiam quia",
+        "body":
+            "ut aspernatur corporis harum nihil quis provident sequi\nmollitia nobis aliquid molestiae\nperspiciatis et ea nemo ab reprehenderit accusantium quas\nvoluptate dolores velit et doloremque molestiae"
+      },
+    ].map((e) => Post.fromMap(e)).toList();
+
     return Scaffold(
       appBar: AppBar(title: Text(title)),
-      body: ListView(),
+      body: ListView.builder(
+        itemCount: posts.length,
+        itemBuilder: (BuildContext context, int index) {
+          return Column(
+            children: [
+              PostItem(post: posts[index]),
+              Divider(
+                thickness: 2,
+              )
+            ],
+          );
+        },
+      ),
     );
   }
 }
