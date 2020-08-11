@@ -15,10 +15,8 @@ class Homepage extends StatelessWidget {
       body: FutureBuilder<List<Post>>(
           future: postService.getPosts(),
           builder: (context, snapshot) {
-            List<Post> posts;
-            if (snapshot.hasData) posts = snapshot.data;
             return snapshot.hasData
-                ? PostsList(posts: posts)
+                ? PostsList(posts: snapshot.data)
                 : Center(child: CircularProgressIndicator());
           }),
     );

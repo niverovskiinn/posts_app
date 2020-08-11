@@ -31,13 +31,22 @@ class DbProvider {
 
   Future<void> updatePost(Post newPost) async {
     final db = await database;
-    await db.update("$postsTable", newPost.toMap(),
+    await db.update(postsTable, newPost.toMap(),
         where: "id = ?", whereArgs: [newPost.id]);
+  }
+
+  Future<List<Post>> getPosts() async {
+    final db = await database;
+    var res = await db.query(postsTable);
+
+    List<Post> list =
+        res.isNotEmpty ? res.map((c) => Post.fromMap(c)).toList() : [];
+    return list;
   }
 
   Future<Post> getPost(int id) async {
     final db = await database;
-    var res = await db.query("$postsTable", where: "id = ?", whereArgs: [id]);
+    var res = await db.query(postsTable, where: "id = ?", whereArgs: [id]);
     return res.isNotEmpty ? Post.fromMap(res.first) : null;
   }
 
@@ -57,30 +66,20 @@ class DbProvider {
 
   Future<void> updateComment(Comment newComment) async {
     final db = await database;
-    await db.update("$commentsTable", newComment.toMap(),
+    await db.update(commentsTable, newComment.toMap(),
         where: "id = ?", whereArgs: [newComment.id]);
   }
 
   Future<Comment> getComment(int id) async {
     final db = await database;
-    var res =
-        await db.query("$commentsTable", where: "id = ?", whereArgs: [id]);
+    var res = await db.query(commentsTable, where: "id = ?", whereArgs: [id]);
     return res.isNotEmpty ? Comment.fromMap(res.first) : null;
-  }
-
-  Future<List<Post>> getPosts() async {
-    final db = await database;
-    var res = await db.query("$postsTable");
-
-    List<Post> list =
-        res.isNotEmpty ? res.map((c) => Post.fromMap(c)).toList() : [];
-    return list;
   }
 
   Future<List<Comment>> getCommentsFromPost(int id) async {
     final db = await database;
     var res =
-        await db.query("$commentsTable", where: "postId = ? ", whereArgs: [id]);
+        await db.query(commentsTable, where: "postId = ? ", whereArgs: [id]);
 
     List<Comment> list =
         res.isNotEmpty ? res.map((c) => Comment.fromMap(c)).toList() : [];

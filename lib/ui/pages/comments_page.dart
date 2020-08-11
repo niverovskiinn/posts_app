@@ -18,10 +18,8 @@ class CommentsPage extends StatelessWidget {
         body: FutureBuilder<List<Comment>>(
             future: commentService.getCommentsForPost(post.id),
             builder: (context, snapshot) {
-              List<Comment> comments;
-              if (snapshot.hasData) comments = snapshot.data;
               return snapshot.hasData
-                  ? CommentsList(post: post, comments: comments)
+                  ? CommentsList(post: post, comments: snapshot.data)
                   : Center(child: CircularProgressIndicator());
             }));
   }
