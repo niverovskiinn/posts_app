@@ -118,15 +118,20 @@ class CommentsPage extends StatelessWidget {
 
     return Scaffold(
         appBar: AppBar(
-          title: Tooltip(message: post.title, child: Text(post.title)),
+          title: Text("Post ${post.id}"),
         ),
         body: ListView(
           children: [
             PostItem(
               post: post,
+              pressable: false,
             ),
-            ...comments.map((e) => CommentItem(
-                  comment: e,
+            ...comments.map((e) => Padding(
+                  padding: const EdgeInsets.symmetric(
+                      horizontal: 16.0, vertical: 8.0),
+                  child: CommentItem(
+                    comment: e,
+                  ),
                 ))
           ],
         ));
@@ -139,8 +144,34 @@ class CommentItem extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Column(
-      children: [Text(comment.name), Text(comment.email), Text(comment.body)],
+    return Container(
+      padding: const EdgeInsets.all(8.0),
+      decoration: BoxDecoration(
+          color: Colors.white,
+          borderRadius: BorderRadius.circular(5),
+          boxShadow: [
+            BoxShadow(
+              blurRadius: 3,
+            ),
+          ]),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Text(
+            comment.name,
+            style: TextStyle(
+                color: Colors.green[800], fontWeight: FontWeight.w700),
+          ),
+          Container(
+            alignment: Alignment.centerRight,
+            child: Text(
+              comment.email,
+              style: TextStyle(color: Colors.black54),
+            ),
+          ),
+          Text(comment.body)
+        ],
+      ),
     );
   }
 }

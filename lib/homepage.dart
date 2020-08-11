@@ -103,6 +103,7 @@ class Homepage extends StatelessWidget {
         itemCount: posts.length,
         itemBuilder: (BuildContext context, int index) {
           return Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               PostItem(post: posts[index]),
               Divider(
