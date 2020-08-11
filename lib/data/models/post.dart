@@ -13,4 +13,8 @@ class Post {
         title: el['title'],
         body: el['body']);
   }
+
+  Map<String, dynamic> toMap() {
+    return {"userId": userId, "id": id, "title": title, "body": body};
+  }
 }

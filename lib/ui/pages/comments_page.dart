@@ -16,31 +16,55 @@ class CommentsPage extends StatelessWidget {
           title: Text("Post ${post.id}"),
         ),
         body: FutureBuilder<List<Comment>>(
-            future: commentService.getCommentsFromPost(post.id),
+            future: commentService.getCommentsForPost(post.id),
             builder: (context, snapshot) {
               List<Comment> comments;
               if (snapshot.hasData) comments = snapshot.data;
               return snapshot.hasData
-                  ? RefreshIndicator(
-                      onRefresh: () async {},
-                      child: ListView(
-                        children: [
-                          PostItem(
-                            post: post,
-                            pressable: false,
-                          ),
-                          ...comments.map((e) => Padding(
-                                padding: const EdgeInsets.symmetric(
-                                    horizontal: 16.0, vertical: 8.0),
-                                child: CommentItem(
-                                  comment: e,
-                                ),
-                              ))
-                        ],
-                      ),
-                    )
+                  ? CommentsList(post: post, comments: comments)
                   : Center(child: CircularProgressIndicator());
             }));
+  }
+}
+
+class CommentsList extends StatefulWidget {
+  final Post post;
+  final List<Comment> comments;
+  CommentsList({Key key, this.post, this.comments}) : super(key: key);
+
+  @override
+  _CommentsListState createState() => _CommentsListState();
+}
+
+class _CommentsListState extends State<CommentsList> {
+  List<Comment> _comments;
+  var _commentService = CommentService();
+
+  @override
+  Widget build(BuildContext context) {
+    if (_comments == null) _comments = widget.comments;
+    return RefreshIndicator(
+      onRefresh: () async {
+        _comments = await _commentService.getCommentsForPostFromApi(
+            postId: widget.post.id + 1);
+        setState(() {});
+      },
+      child: ListView(
+        children: [
+          PostItem(
+            post: widget.post,
+            pressable: false,
+          ),
+          ..._comments.map((e) => Padding(
+                padding:
+                    const EdgeInsets.symmetric(horizontal: 16.0, vertical: 8.0),
+                child: CommentItem(
+                  comment: e,
+                ),
+              ))
+        ],
+      ),
+    );
   }
 }
 
