@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:posts_app/data/models/post.dart';
 import 'package:posts_app/widgets/post_item.dart';
-import 'data/models/comment.dart';
+import '../data/models/comment.dart';
 
 class CommentsPage extends StatelessWidget {
   final Post post;
@@ -159,8 +159,7 @@ class CommentItem extends StatelessWidget {
         children: [
           Text(
             comment.name,
-            style: TextStyle(
-                color: Colors.green[800], fontWeight: FontWeight.w700),
+            style: TextStyle(fontWeight: FontWeight.w700),
           ),
           Container(
             alignment: Alignment.centerRight,

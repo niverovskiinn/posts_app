@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:posts_app/widgets/post_item.dart';
 
-import 'data/models/post.dart';
+import '../data/models/post.dart';
 
 class Homepage extends StatelessWidget {
   final String title;

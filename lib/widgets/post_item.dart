@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:posts_app/commentspage.dart';
+import 'package:posts_app/pages/commentspage.dart';
 import 'package:posts_app/data/models/post.dart';
 
 class PostItem extends StatelessWidget {
